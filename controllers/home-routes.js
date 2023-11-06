@@ -6,3 +6,5 @@ router.get('/', async (req, res)=> {
     const projects = dbProjects.map((project) => project.get({plain: true}));
     res.render('homepage', {projects} );
 });
+
+module.exports = router;
