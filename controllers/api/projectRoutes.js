@@ -34,4 +34,27 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const projectData = await Project.findOne({
+      where: {
+        id: req.params.id,
+        // user_id: req.session.user_id,
+      },
+    });
+
+    if (!projectData) {
+      res.status(404).json({ message: 'No project found with this id!' });
+      return;
+    }
+
+    const project = projectData.get({plain: true});
+
+    // res.status(200).json(projectData);
+    res.render('project', {project});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
